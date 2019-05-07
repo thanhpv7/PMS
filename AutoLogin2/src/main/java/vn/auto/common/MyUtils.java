@@ -33,9 +33,9 @@ public class MyUtils {
      * @throws AWTException
      */
     public static WebDriver openChrome() {
-        System.setProperty("webdriver.chrome.driver", "E:\\SleniumBE\\chromedriver3_32.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\SleniumBE\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--user-data-dir=E:\\SleniumBE\\BrowserProfile");
+        options.addArguments("--user-data-dir=D:\\SleniumBE\\BrowserProfile");
         return new ChromeDriver(options);
     }
     
@@ -96,6 +96,24 @@ public class MyUtils {
         List<WebElement> listElementLinks = menu.findElements(byListLinks);
 
         for (WebElement element : listElementLinks) {
+            String link = element.getAttribute("href");
+            if (link.contains(prefixLink)) {
+                listLinks.add(link);
+            }
+        }
+        return listLinks;
+    }
+    
+    /**
+     * get list links
+     * 
+     * @author phamvanthanh
+     * @return
+     */
+    public static List<String> getListLinks(List<WebElement> listMenus, String prefixLink) {
+        List<String> listLinks = new ArrayList<String>();
+
+        for (WebElement element : listMenus) {
             String link = element.getAttribute("href");
             if (link.contains(prefixLink)) {
                 listLinks.add(link);

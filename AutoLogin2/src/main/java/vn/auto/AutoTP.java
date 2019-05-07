@@ -19,11 +19,12 @@ import com.detectlanguage.errors.APIError;
 
 public class AutoTP {
     private WebDriver driver;
-    private final String path = "E:\\SleniumBE\\tutorialspoint\\";
+    private final String path = "D:\\SleniumBE\\tutorialspoint\\";
     private final String SCROLL_WEB = "$('html, body').animate({scrollTop: $('#textemail').offset().top}, {_scrollMiliSeconds});";
-    private final String MENU_BAR = ".//aside[@class='sidebar']";
+    private final String MENU_BAR = ".//aside[@class='sidebar']//li//a";
     private final String LIST_LINKS = "//li/a";
-    private final String CSS_LINK = "http://vietjack.com/cplusplus/";
+    private final String PAGE_LINK = "https://vietjack.com/nodejs/";
+    private final String LIST_LINK = "https://vietjack.com/nodejs/";
     private final String NEXT_PAGE = "NEXT PAGE";
     private Dimension dimension;
     private String HEIGHT_JQ = "return $(document ).height();";
@@ -57,10 +58,16 @@ public class AutoTP {
             // get dimension (height and width) of screen
             dimension = driver.manage().window().getSize();
             // go to index page of the topic
-            driver.get(CSS_LINK);
+            driver.get(LIST_LINK);
+            
             // get list links from menu
-            WebElement menu = driver.findElement(By.xpath(MENU_BAR));
-            List<String> listLinks = MyUtils.getListLinks(menu, By.xpath(LIST_LINKS), CSS_LINK);
+            List<WebElement> listMenus = driver.findElements(By.xpath(MENU_BAR));
+            List<String> listLinks = MyUtils.getListLinks(listMenus, LIST_LINK);
+            
+            // get list links from menu
+            // WebElement menu = driver.findElement(By.xpath(MENU_BAR));
+            // List<String> listLinks = MyUtils.getListLinks(listMenus, CSS_LINK);
+            
             // get content of list links
             if (listLinks != null && listLinks.size() > 0) {
                 int listLinksSize = listLinks.size();
@@ -257,7 +264,7 @@ public class AutoTP {
         // create fileName
         String prefix_name = num < 10 ? "0" + num : "" + num;
         String fileName = path + Constants.CPLUSPLUS_FOLDER + prefix_name + "-"
-                + url.substring(CSS_LINK.length(), url.length());
+                + url.substring(PAGE_LINK.length(), url.length());
         fileName = fileName.replace("/", "\\").replace("_", "-");
         // write content to file
         MyUtils.writeHTML(fileName, innerHTML);
