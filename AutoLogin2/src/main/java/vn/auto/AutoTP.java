@@ -23,8 +23,8 @@ public class AutoTP {
     private final String SCROLL_WEB = "$('html, body').animate({scrollTop: $('#textemail').offset().top}, {_scrollMiliSeconds});";
     private final String MENU_BAR = ".//aside[@class='sidebar']//li//a";
     private final String LIST_LINKS = "//li/a";
-    private final String PAGE_LINK = "https://vietjack.com/nodejs/";
-    private final String LIST_LINK = "https://vietjack.com/nodejs/";
+    private final String PAGE_LINK = "https://vietjack.com/python/";
+    private final String LIST_LINK = "https://vietjack.com/python/";
     private final String NEXT_PAGE = "NEXT PAGE";
     private Dimension dimension;
     private String HEIGHT_JQ = "return $(document ).height();";

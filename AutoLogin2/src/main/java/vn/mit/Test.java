@@ -18,9 +18,11 @@ public class Test {
         wePassword.sendKeys("password");
         weLogin.click();
         // go to registration
-        WebElement weMMSMenu = driver.findElement(By.xpath(".//span[@id='tdmainMenum_0']"));
-        WebElement weRegMenu = driver.findElement(By.xpath(".//span[@id='tdmainMenum_0_22']"));
+        WebElement iFrame= driver.findElement(By.tagName("frameset"));
+        driver.switchTo().frame("menuFrame");
+        WebElement weMMSMenu = driver.findElement(By.id("tdmainMenum_0"));
         weMMSMenu.click();
+        WebElement weRegMenu = driver.findElement(By.id("tdmainMenum_0_22"));
         weRegMenu.click();
         
     }
