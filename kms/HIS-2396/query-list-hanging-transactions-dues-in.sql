@@ -1,3 +1,6 @@
+declare @TrxDate datetime
+set @TrxDate='2019-10-09' 
+
 --- Due in ---
 SELECT
 	x.req_no,
@@ -60,6 +63,8 @@ FROM
 		AND Status = 'SBMR' 
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
+		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
 		Stock_Code,
@@ -91,6 +96,8 @@ FROM
 		AND Item.Item_Status NOT IN ('CCLR','NARR')
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
+		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
 		Stock_Code,
@@ -122,6 +129,8 @@ FROM
 		AND Item.Item_Status IN ('APPR','CMPL','CNCL')
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
+		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
 		Stock_Code,
@@ -153,6 +162,8 @@ FROM
 		AND Status = 'SBMT'
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
+		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
 		Item.Stock_Code,
@@ -183,6 +194,8 @@ FROM
 		AND Head.po_No = Item.po_No
 		AND Head.po_sys = Item.po_sys
 		AND Item.qty_Purchased > Item.qty_Received
+		and Item.WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		and convert(date, Head.po_date) <= @TrxDate
 	UNION ALL 
 	SELECT
 		Stock_Code,
@@ -208,6 +221,8 @@ FROM
 		kms.kms_supl_ppo_item item
 	WHERE
 		status = 'INPR'
+		and item.rcv_whouse IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and convert(date, item.exp_date) <= @TrxDate
 	) x 
 WHERE
 	Dues_In_manual <> 0
