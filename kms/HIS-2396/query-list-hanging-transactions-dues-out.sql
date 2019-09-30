@@ -1,5 +1,5 @@
 declare @TrxDate datetime
-set @TrxDate='2019-10-09' 
+set @TrxDate='2019-08-09' 
 
 --DUES-OUT
 select
