@@ -56,8 +56,8 @@ from
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1) --non-compound prescription
-		and inv_no is null --not added to a invoice
-		and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and inv_no is null --not added to a invoice
+		--and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	select
@@ -92,8 +92,8 @@ from
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1)
-		and inv_no is null
-		and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and inv_no is null
+		--and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	select
@@ -128,8 +128,8 @@ from
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1)
-		and inv_no is null
-		and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and inv_no is null
+		--and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	select
@@ -164,8 +164,8 @@ from
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1)
-		and inv_no is null
-		and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and inv_no is null
+		--and head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	select
@@ -199,8 +199,8 @@ from
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1)
-		and inv_no is null
-		and head.src_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and inv_no is null
+		--and head.src_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	select
@@ -235,8 +235,8 @@ from
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1)
-		and inv_no is null
-		and head.src_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and inv_no is null
+		--and head.src_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	select
@@ -271,8 +271,8 @@ from
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1)
-		and inv_no is null
-		and head.src_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and inv_no is null
+		--and head.src_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL
 	select

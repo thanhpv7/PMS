@@ -24,7 +24,8 @@ SELECT
 	END item_status,
 	--item_status,
 	rcv_wh_id,
-	src_wh_id
+	src_wh_id,
+	po_sys
 	--qty_req,
 	--qty_allocated,qty_issued,
 	--qty_outstanding,qty_purchased,
@@ -53,7 +54,8 @@ FROM
 		'Dues in = qty_req' formula,
 		qty_wh_req,
 		rcv_whouse_id rcv_wh_id,
-		src_whouse_id src_wh_id
+		src_whouse_id src_wh_id,
+		null po_sys
 	FROM
 		kms.KMS_SUPL_MTRL_TRANS_HEAD Head,
 		kms.KMS_SUPL_MTRL_TRANS_ITEM Item 
@@ -63,7 +65,7 @@ FROM
 		AND Status = 'SBMR' 
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
-		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
@@ -85,7 +87,8 @@ FROM
 		'Dues in = qty_req' formula,
 		qty_wh_req,
 		rcv_whouse_id rcv_wh_id,
-		src_whouse_id src_wh_id 
+		src_whouse_id src_wh_id,
+		null po_sys
 	FROM
 		kms.KMS_SUPL_MTRL_TRANS_HEAD Head,
 		kms.KMS_SUPL_MTRL_TRANS_ITEM Item 
@@ -96,7 +99,7 @@ FROM
 		AND Item.Item_Status NOT IN ('CCLR','NARR')
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
-		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
@@ -118,7 +121,8 @@ FROM
 		'Dues in = qty_req' formula,
 		qty_wh_req,
 		rcv_whouse_id rcv_wh_id,
-		src_whouse_id src_wh_id
+		src_whouse_id src_wh_id,
+		null po_sys
 	FROM
 		kms.KMS_SUPL_MTRL_TRANS_HEAD Head, 
 		kms.KMS_SUPL_MTRL_TRANS_ITEM Item 
@@ -129,7 +133,7 @@ FROM
 		AND Item.Item_Status IN ('APPR','CMPL','CNCL')
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
-		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
@@ -151,7 +155,8 @@ FROM
 		'Dues in = qty_req' formula,
 		qty_wh_req,
 		rcv_whouse_id rcv_wh_id,
-		src_whouse_id src_wh_id 
+		src_whouse_id src_wh_id,
+		null po_sys 
 	FROM
 		kms.KMS_SUPL_MTRL_TRANS_HEAD Head,
 		kms.KMS_SUPL_MTRL_TRANS_ITEM Item 
@@ -162,7 +167,7 @@ FROM
 		AND Status = 'SBMT'
 		AND head.head_status_flag = 0
 		AND item.item_status_flag = 0
-		and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and Head.rcv_WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, head.req_date) <= @TrxDate
 	UNION ALL 
 	SELECT
@@ -184,7 +189,8 @@ FROM
 		'qty_Purchased - qty_Received * Convert_Fact'                  formula,
 		0 															   qty_wh_req,
 		null,
-		null 
+		null,
+		Head.po_sys
 	FROM
 		kms.KMS_SUPL_PO_HEAD Head,
 		kms.KMS_SUPL_PO_ITEM Item 
@@ -194,7 +200,7 @@ FROM
 		AND Head.po_No = Item.po_No
 		AND Head.po_sys = Item.po_sys
 		AND Item.qty_Purchased > Item.qty_Received
-		and Item.WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and Item.WhoUse_Id IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		and convert(date, Head.po_date) <= @TrxDate
 	UNION ALL 
 	SELECT
@@ -216,12 +222,13 @@ FROM
 		'actual_qty * cnv_fact'	formula,
 		0						qty_wh_req,
 		null,
+		null,
 		null 
 	FROM
 		kms.kms_supl_ppo_item item
 	WHERE
 		status = 'INPR'
-		and item.rcv_whouse IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
+		--and item.rcv_whouse IN (SELECT table_code FROM kms.KMS_CONF_SYST_LKUP WHERE table_type='SU_WID' AND status = 'ACTIVE')
 		--and convert(date, item.exp_date) <= @TrxDate
 	) x 
 WHERE
