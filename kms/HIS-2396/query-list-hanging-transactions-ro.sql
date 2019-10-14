@@ -1,5 +1,5 @@
 declare @TrxDate datetime
-set @TrxDate='2019-12-09' 
+set @TrxDate='2019-08-09' 
 
 --- RO ----
 select

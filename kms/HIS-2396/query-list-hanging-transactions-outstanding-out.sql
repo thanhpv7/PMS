@@ -1,5 +1,5 @@
 declare @TrxDate datetime
-set @TrxDate='2019-10-09' 
+set @TrxDate='2019-08-09' 
 
 --- Outstanding Out	---
 SELECT
@@ -373,27 +373,32 @@ UNION ALL
 		AND item.qty_outstanding > 0
 		AND (item.comp_medication IS NULL OR comp_medication < 1) --non-compound prescription
 		and convert(date, head.req_date) <= @TrxDate
+	) A
+
 	UNION ALL
 	SELECT
-		item.stock_code,
-		null,
-		head.whouse_id                       whouse_id,
-		head.chart_no,
+	    head.chart_no req_no,
+		item.chart_item_no,
+		kms.getlookupdesc('MDC_LIT', 'MDC', 'EN') as req_type_code,
 		kms.getlookupdesc('MDC_LIT', 'MDC', 'EN') as req_type,
 		kms.getlookupdesc('MDC_HEAD_STATUS',head.mode,'EN') status,
+		item.stock_code,
+		head.whouse_id                       whouse_id,
 		kms.getlookupdesc('MDC_HEAD_STATUS',item.status,'EN') item_status,
-		quantity,
-		0                                   qty_allocated,
-		qty_issued,
-		qty_outstanding,
-		0                                   qty_purchased,
-		0                                   qty_received,
-		null                                convert_fact,
-		item.qty_outstanding                outstanding_out,
-		'outstanding_out = qty_outstanding' formula,
-		qty_wh_req,
 		null,
 		null
+		--quantity,
+		--0                                   qty_allocated,
+		--qty_issued,
+		--qty_outstanding,
+		--0                                   qty_purchased,
+		--0                                   qty_received,
+		--null                                convert_fact,
+		--item.qty_outstanding                outstanding_out,
+		--'outstanding_out = qty_outstanding' formula,
+		--qty_wh_req,
+		--null,
+		--null
 	FROM
 		kms.kms_serv_medc_chart head,
 		kms.kms_serv_medc_chart_item item
@@ -404,4 +409,3 @@ UNION ALL
 		AND item.status IN ('ISSD', 'RECV', 'ADMD', 'RTRN', 'PRTR', 'FRTR', 'STOP')
 		AND item.qty_outstanding > 0
 	    and convert(date, head.order_date) <= @TrxDate
-	) A
