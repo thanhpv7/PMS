@@ -11,18 +11,18 @@ select
 	stock_code,
 	rcv_whouse_id                               wh_id,
 	kms.getlookupdesc('SU_IST',item_status,'EN') item_status,
-	qty_req,
-	0                                           qty_allocated,
-	qty_issued,
-	qty_outstanding,
-	0                                           qty_purchased,
-	0                                           qty_received,
-	null                                        convert_fact,
-	qty_issued                                  qty,
-	'stock in transit = qty_issued'             formula,
-	qty_wh_req,
 	rcv_whouse_id rcv_wh_id,
 	src_whouse_id src_wh_id
+	--qty_req,
+	--0                                           qty_allocated,
+	--qty_issued,
+	--qty_outstanding,
+	--0                                           qty_purchased,
+	--0                                           qty_received,
+	--null                                        convert_fact,
+	--qty_issued                                  qty,
+	--'stock in transit = qty_issued'             formula,
+	--qty_wh_req 
 from
 	kms.kms_supl_mtrl_trans_item item,
 	kms.kms_supl_mtrl_trans_head head 
