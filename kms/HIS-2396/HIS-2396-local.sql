@@ -8,10 +8,9 @@ SELECT * FROM kms.KMS_ADM_MEDC_ACTN WHERE actv_grp_id = '387'
 SELECT * FROM kms.KMS_ADM_INVC_ITEM WHERE ref_id = 'P-1909170001'
 
 -- prescription
-SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000001' and whouse_id='DIS'
-SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000001' and whouse_id='MNWH'
-SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_HEAD where req_no='TR0000005'
-SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_ITEM where req_no='TR0000005'
+SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000004' and whouse_id='DIS'
+SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_HEAD where req_no='P-1910080003'
+SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_ITEM where req_no='P-1910080003'
 
 select qty_req from kms.KMS_SUPL_MTRL_TRANS_ITEM where req_no='TR0000001' and stock_code='M00000010' and item_no=1 AND item_status_flag = 0
 
@@ -66,6 +65,22 @@ SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000004' and whouse_id=
 SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_HEAD where req_no='TR0000014'
 SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_ITEM where req_no='TR0000014' and item_no = 1
 
+-- outstanding-out 4
+SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000004' and whouse_id='DIS'
+SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000005' and whouse_id='DIS'
+SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_HEAD where req_no='P-1910100001'
+SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_ITEM where req_no='P-1910100001' and item_no = 1
+SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_ITEM where req_no='P-1910100001' and item_no = 2
 
+-- outstanding-out medication-chart order
+SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000006' and whouse_id='DIS'
+SELECT * FROM kms.kms_serv_medc_chart head where chart_no = 'MC2019000000015'
+SELECT * FROM kms.kms_serv_medc_chart_item item where chart_no = 'MC2019000000015'
+
+-- in-transit
+SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000030' and whouse_id='DIS'
+SELECT * FROM kms.KMS_SUPL_WARH_INVN where stock_code='M00000030' and whouse_id='MNWH'
+SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_HEAD where req_no='TR0000013'
+SELECT * FROM kms.KMS_SUPL_MTRL_TRANS_ITEM where req_no='TR0000013'
 
 

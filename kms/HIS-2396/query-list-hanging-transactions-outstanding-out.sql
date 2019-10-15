@@ -3,6 +3,7 @@ set @TrxDate='2019-08-09'
 
 --- Outstanding Out	---
 SELECT
+    DISTINCT 
 	req_no,
 	item_no,
 	req_type                                    req_type_code,
@@ -274,7 +275,7 @@ UNION ALL
 	SELECT
 		item.stock_code,
 		item_no              item_no,
-		head.src_whouse_id                  whouse_id,
+		case when head.src_whouse_id is not null then head.src_whouse_id else head.rcv_whouse_id end whouse_id,
 		head.req_no,
 		req_type,
 		status,
